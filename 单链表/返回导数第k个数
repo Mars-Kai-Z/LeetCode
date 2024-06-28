@@ -1,0 +1,40 @@
+面试题 02.02 返回导数第k个数
+【问题描述】
+实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。
+
+注意：本题相对原题稍作改动
+
+示例：
+
+输入： 1->2->3->4->5 和 k = 2
+输出： 4
+说明：
+
+给定的 k 保证是有效的。
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+
+int kthToLast(struct ListNode* head, int k){
+    struct ListNode *front = head;      // 前指针
+    struct ListNode *behined = head;    // 后指针
+    int temp = 1;                       // 标记front移动到第k个位置
+
+    while(front->next != NULL){
+        front = front->next;            // front往后移
+        temp++;                         // 
+        if(temp > k){
+            behined = behined->next;    // 后指针开始移动
+        }
+    }
+    return behined->val;
+}
+
+【评论区的另一种方法（略）】
+所有值扔数组，直接按索引返回
