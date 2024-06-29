@@ -9,6 +9,10 @@
    nums 的其余元素与 nums 的大小不重要。
 2）返回 k 。
 
+【思路】
+因为本身就是非严格递增数组，用一个指针指向第一个元素，第二个指针指向第二个元素。
+只要两个元素符合递增规律，两个指针一起向后移，否则之移动第二个指针。
+
 int removeDuplicates(int* nums, int numsSize) {
     int j = 0;                                  // 类似于第二个指针
     for (int i = 1; i < numsSize; i++) {
