@@ -18,7 +18,7 @@ int* addToArrayForm(int* num, int numSize, int k, int* returnSize) {
         k_Size++;
         k_num /= 10;
     }
-    int len = fmax(k_Size, numSize); // 获取较大数的位数
+    int len = k_Size > numSize ? k_Size : numSize; // 获取较大数的位数
     int* arr = (int*)malloc(sizeof(int) * (len + 1)); // 创建新数组
 
     int ni = numSize - 1; // numSize[ni]
