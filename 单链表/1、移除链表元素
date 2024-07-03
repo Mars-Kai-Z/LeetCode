@@ -15,6 +15,8 @@
   输入：head = [7,7,7,7], val = 7
   输出：[]
 
+// 2024、7、3；补充代码中，修要改进的地方——>在跳过该结点时，应该释放跳过结点的内存，否则容易造成内存泄漏
+
   /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -33,10 +35,13 @@ struct ListNode* removeElements(struct ListNode* head, int val) {
     
     struct ListNode *curr = head->next;           // 当前指针
     struct ListNode *prev = head;                 // 当前指针的前一个指针
+    struct ListNode *node = NULL;                 // 新增指向要释放的内存的指针（2024/7/3）
     while(curr != NULL){                          // 至少还有一个结点
         if(curr->val == val){
             prev->next = curr->next;
+            node = curr;                          // 指向将要释放的结点（2024/7/3）
             curr = curr->next;                    // 跳过该结点
+            free(node);                           // 释放该指针指向的内存（2024/7/3）
         }
         else{
             curr = curr->next;
