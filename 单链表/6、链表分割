@@ -1,0 +1,44 @@
+CM 11
+
+https://www.nowcoder.com/practice/0e27e0b064de4eacac178676ef9c9d70?tpId=8&&tqId=11004&rp=2&ru=/activity/oj&qru=/ta/cracking-the-coding-interview/question-ranking
+
+【问题描述】
+现有一链表的头指针 ListNode* pHead，给一定值x，编写一段代码将所有小于x的结点排在其余结点之前，
+且不能改变原来的数据顺序，返回重新排列后的链表的头指针。
+
+// 写代码一定要规范，例如一定要把最后的secNode->next = nullptr;
+// 否则会出错。不要为了快而快。
+
+/*
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+#include <cstdlib>
+class Partition {
+  public:
+    ListNode* partition(ListNode* pHead, int x) {
+        ListNode* firNode = (ListNode*)malloc(sizeof(ListNode)); // 第一个链表
+        ListNode* firTail = firNode;
+        ListNode* secNode = (ListNode*)malloc(sizeof(ListNode)); // 第二个链表
+        ListNode* secTail = secNode;
+        while (pHead) {
+            if (pHead->val < x) {           // 小于x的放第一个链表
+                firTail->next = pHead;
+                firTail = firTail->next;
+            } else {                        // 其他的放第二个链表
+                secTail->next = pHead;
+                secTail = secTail->next;
+            }
+            pHead = pHead->next;
+        }
+        firTail->next = secNode->next;      // 释放指向第一个头结点的内存
+        free(secNode);
+        ListNode* temp = firNode;
+        firNode = firNode->next;
+        free(temp);                         // 释放指向第二个头结点的内存
+        secTail->next =nullptr;             // 最容易忽略的地方，忘了可能会成环
+        return firNode;
+    }
+};
