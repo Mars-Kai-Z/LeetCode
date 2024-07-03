@@ -1,0 +1,30 @@
+11、盛水最多的容器
+
+https://leetcode.cn/problems/container-with-most-water/submissions/543868073/
+
+【问题描述】
+给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+
+找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+
+返回容器可以储存的最大水量。
+
+说明：你不能倾斜容器。
+
+/*可惜，使用双重循环超出了时间限制*/
+int maxArea(int* height, int heightSize) {
+    // 试试双重循环
+    int max = 0; // 最大值
+    int tall;
+    for (int num1 = 0; num1 < heightSize - 1; num1++) {
+        for (int num2 = num1+1; num2 < heightSize; num2++) {
+            tall = height[num1]>height[num2]?height[num2]:height[num1]; // 较小的值作为高
+            if((num2-num1)*tall > max){
+                max  = (num2-num1)*tall;
+            }
+        }
+    }
+    return max;
+}
+
+
