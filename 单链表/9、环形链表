@@ -36,3 +36,5 @@ bool hasCycle(struct ListNode* head) {
     return false;
 }
 
+另一种方法：快慢指针在第一次相遇的结点，断开。使之转化为求两个链表的相交结点
+【暂略】
