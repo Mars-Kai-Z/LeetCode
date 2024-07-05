@@ -11,6 +11,13 @@ https://www.nowcoder.com/practice/d281619e4b3e4a60a2cc66ea32855bfa?tpId=49&&tqId
 1、空链表不算回文结构
 2、有可能会想当然地利用中间结点的位置，应该将后面的链表翻转过来，在比较
 
+// 2024/7/5：此处有一个错误，虽然碰巧通过所有测试用例，但是在调式时，发现明显不对
+// 即： ListNode* first = A->next;      // 快指针
+// 这里不应该是指向A的下一个结点，这样导致有偶数个结点时，找不到其中间结点
+// 虽然碰巧通过所有测试用例，但不符合解题思路。
+// 敲代码时还是要细心
+
+
 /*
 struct ListNode {
     int val;
@@ -63,3 +70,48 @@ class PalindromeList {
         return true;
     }
 };
+
+// 2024 /7 /5：新的解法
+// 找到中间结点后，将前后两个链表斩断
+struct ListNode {
+    int val;
+    struct ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};*/
+#include <iostream>
+class PalindromeList {
+  public:
+    bool chkPalindrome(ListNode* A) {
+
+        ListNode* first = A;            // 快指针;注意这里不是first = A->next
+        ListNode* sec = A;              // 慢指针
+        ListNode* last = nullptr;       // 第三个指针
+        while (first && first->next) {  // 找到中间结点
+            last = sec;
+            first = first->next->next;
+            sec = sec->next;
+        }
+        last->next = nullptr;   // 将前后两个链表斩断
+
+        ListNode* newList = nullptr;    // 反转链表的头指针
+        ListNode* temp = nullptr;       // 临时指针
+        while (sec) {
+            temp = sec;
+            sec = sec->next;
+
+            temp->next = newList;
+            newList = temp;
+        }
+
+        while (A) {       // 遍历A至结束
+            if (A->val ==  newList->val) {
+                newList = newList->next;
+                A = A->next;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
