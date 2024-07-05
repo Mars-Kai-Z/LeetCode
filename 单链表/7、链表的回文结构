@@ -103,7 +103,7 @@ class PalindromeList {
             newList = temp;
         }
 
-        while (A) {       // 遍历A至结束
+        while (A) {       // 遍历A至结束；不能用newList因为可能会多一个结点
             if (A->val ==  newList->val) {
                 newList = newList->next;
                 A = A->next;
