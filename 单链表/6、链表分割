@@ -9,6 +9,9 @@ https://www.nowcoder.com/practice/0e27e0b064de4eacac178676ef9c9d70?tpId=8&&tqId=
 // 写代码一定要规范，例如一定要把最后的secNode->next = nullptr;
 // 否则会出错。不要为了快而快。
 
+
+/*2024/7/5 ：以后要注意，在申请链表的结点之后，最好先初始化一下，使其next指针指向NULL*/
+
 /*
 struct ListNode {
     int val;
@@ -23,6 +26,7 @@ class Partition {
         ListNode* firTail = firNode;
         ListNode* secNode = (ListNode*)malloc(sizeof(ListNode)); // 第二个链表
         ListNode* secTail = secNode;
+        firNode->next = secNode->next = nullptr;    // 初始化  /2024/07/05
         while (pHead) {
             if (pHead->val < x) {           // 小于x的放第一个链表
                 firTail->next = pHead;
